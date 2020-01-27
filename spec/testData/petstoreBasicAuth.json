@@ -1,0 +1,336 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a sample server Telekom server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).",
+    "version": "1.0.0",
+    "title": "Rate Plan Configuration API",
+    "termsOfService": "http://swagger.io/terms/",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "telekom-appdirect-subscription-events.eio.ninja",
+  "basePath": "/configuration",
+  "securityDefinitions": {
+    "basicAuth": {
+      "type": "basic"
+    }
+  },
+  "security": [
+    {
+      "basicAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "rateplans",
+      "description": "Managing configuiration API"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/rateplans": {
+      "get": {
+        "tags": [
+          "rateplans"
+        ],
+        "summary": "Get all RatePlan Configuration",
+        "description": "",
+        "operationId": "getRatePlanConfig",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/GetRatePlan"
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "rateplans"
+        ],
+        "summary": "Add a new RatePlan Configuration",
+        "description": "",
+        "operationId": "addRatePlanConfig",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Rate Plan configuration, which will be used for Contract Management",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RatePlanConfiguration"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation"
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/rateplans/{ratePlanName}": {
+      "get": {
+        "tags": [
+          "rateplans"
+        ],
+        "summary": "Get an existing RatePlan by Name",
+        "description": "",
+        "operationId": "getRPByName",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ratePlanName",
+            "in": "path",
+            "description": "RatePlan name value that need to be considered for filter",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/GetRatePlan"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "rateplans"
+        ],
+        "summary": "Update an existing RatePlan by Name",
+        "description": "",
+        "operationId": "updateRPByName",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ratePlanName",
+            "in": "path",
+            "description": "RatePlan name value that need to be considered for filter",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Rate Plan configuration object that needs to be updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RatePlanConfiguration"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully updated",
+            "schema": {
+              "$ref": "#/definitions/SuccessOperation"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "rateplans"
+        ],
+        "summary": "Delete an existing RatePlan by Name",
+        "description": "",
+        "operationId": "deleteRPByName",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ratePlanName",
+            "in": "path",
+            "description": "RatePlan name value that need to be considered for filter",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted",
+            "schema": {
+              "$ref": "#/definitions/SuccessOperation"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "RatePlan": {
+      "type": "object",
+      "properties": {
+        "contract": {
+          "type": "object",
+          "properties": {
+            "tokens": {
+              "type": "object",
+              "properties": {
+                "totalCnt": {
+                  "type": "number",
+                  "format": "int64"
+                },
+                "reservedCnt": {
+                  "type": "number",
+                  "format": "int64"
+                }
+              }
+            },
+            "role": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "workspace": {
+          "type": "object",
+          "properties": {
+            "role": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "name": {
+          "type": "string",
+          "example": "BASE"
+        },
+        "defaultContractName": {
+          "type": "string",
+          "example": "MyContract"
+        }
+      }
+    },
+    "RatePlanConfiguration": {
+      "type": "object",
+      "properties": {
+        "RatePlan": {
+          "$ref": "#/definitions/RatePlan"
+        }
+      }
+    },
+    "GetRatePlan": {
+      "type": "object",
+      "properties": {
+        "RatePlan": {
+          "$ref": "#/definitions/RatePlan"
+        },
+        "_id": {
+          "type": "string",
+          "example": "5c1904fa79ec7861e34c4d9a"
+        },
+        "createdDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastUpdatedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "version": {
+          "type": "number",
+          "format": "int64"
+        }
+      }
+    },
+    "SuccessOperation": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "string",
+          "example": "true"
+        }
+      }
+    }
+  },
+  "responses": {
+    "UnauthorizedError": {
+      "description": "Unauthorized",
+      "headers": {
+        "Authorization": {
+          "type": "string",
+          "description": "Basic Authorization"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
