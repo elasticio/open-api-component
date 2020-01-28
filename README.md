@@ -5,15 +5,15 @@
    * [Description](#description)
    * [Purpose](#purpose)
    * [Completeness Matrix](#completeness-matrix)
-   * [How works. API version / SDK version](#how-works-api-version-sdk-version)
+   * [How works. API version/SDK version](#how-works-api-version--sdk-version)
 * [Credentials](#credentials)
      * [Type](#type)
-     * [A URL to an OpenAPI/Swagger document](#a-url-to-an-openapi-swagger-document)
+     * [A URL to an OpenAPI/Swagger document](#a-url-to-an-openapiswagger-document)
 * [Actions](#actions)
    * [Make Request](#make-request)
 * [Additional info](#additional-info)
 * [Known Limitations](#known-limitations)
-* [<External System> API and Documentation links](#<external system>-api-and-documentation-links)
+
 ## General information
 ### Description
 OpenAPI Specification (formerly Swagger Specification) is an API description format for REST APIs.
@@ -25,6 +25,7 @@ Using OpenAPI Specification make request to REST API on elastic.io platform.
 ### How works. API version / SDK version
 Currently, it is supported OpenAPI version 2.0 documents.
 It is used [Swagger Client](https://github.com/swagger-api/swagger-js) version 3.10.0.
+[OpenAPI Specification](https://swagger.io/docs/specification/about/).
 
 ## Credentials
   ![image](https://user-images.githubusercontent.com/16806832/73258248-fa337980-41cd-11ea-8c8a-daf9a22360ec.png)
@@ -67,7 +68,6 @@ It is used [Swagger Client](https://github.com/swagger-api/swagger-js) version 3
    <details> 
      <summary>OpenApi Description for path `/pet/{petId}` and operation `get`</summary>     
     
-     ```json
      {
        "paths": {
          "/pet/{petId}": {
@@ -115,7 +115,6 @@ It is used [Swagger Client](https://github.com/swagger-api/swagger-js) version 3
          }
        }
      }
-     ```    
     
    </details>
    
@@ -125,5 +124,3 @@ It is used [Swagger Client](https://github.com/swagger-api/swagger-js) version 3
  - OpenApi v2.0 is supported
  - Multiply hosts is unsupported
  - Each operation should contains only one tag
-## <External System> API and Documentation links (endpoints)
-[OpenAPI Specification](https://swagger.io/docs/specification/about/);
