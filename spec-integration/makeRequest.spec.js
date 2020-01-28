@@ -8,11 +8,16 @@ const cfg = {
   openApiUrl: 'https://petstore.swagger.io/v2/swagger.json',
 };
 const self = {
-  emit: sinon.spy(),
   logger,
 };
 
 describe('Get Pets By Status', () => {
+  beforeEach(() => {
+    self.emit = sinon.spy();
+  });
+  afterEach(() => {
+    sinon.restore();
+  });
   it('getPath test', async () => {
     const result = await action.getPath.call(self, cfg);
     expect(result).to.have.ownPropertyDescriptor('/pet');
@@ -50,7 +55,21 @@ describe('Get Pets By Status', () => {
       },
     };
     await action.process.call(self, msg, cfg);
-    // eslint-disable-next-line no-unused-expressions
-    expect(self.emit.calledOnce).to.be.true;
+    expect(self.emit.calledOnce).to.equal(true);
+  });
+
+  it('process test with dontThrowErrorFlg', async () => {
+    cfg.path = '/pet/{petId}';
+    cfg.operation = 'get';
+    cfg.dontThrowErrorFlg = true;
+    const msg = {
+      body: {
+        petId: 'eeee',
+      },
+    };
+    await action.process.call(self, msg, cfg);
+    expect(self.emit.calledOnce).to.equal(true);
+    expect(self.emit.firstCall.args[0]).to.equal('data');
+    expect(self.emit.firstCall.args[1].body.statusCode).to.equal(404);
   });
 });
