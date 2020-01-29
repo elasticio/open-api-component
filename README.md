@@ -17,6 +17,7 @@
 ## General information
 ### Description
 OpenAPI Specification (formerly Swagger Specification) is an API description format for REST APIs.
+OpenAPI (Swagger) document needs to be hosted online and should be reached without authentication. You need to provide a URL to this document in the credentials.
 ### Purpose
 Using OpenAPI Specification make request to REST API on elastic.io platform.
 ### Completeness Matrix
@@ -119,8 +120,29 @@ It is used [Swagger Client](https://github.com/swagger-api/swagger-js) version 3
    </details>
    
    #### Expected output metadata
-   Component will return body of request result.
+   ```json
+     {
+         "type": "object",
+         "properties": {
+           "headers": {
+             "type": "object",
+             "properties": {},
+             "required": true
+           },
+           "body": {
+             "type": "object",
+             "properties": {},
+             "required": true
+           },
+           "responseCode": {
+             "type": "number",
+             "required": true
+           }
+         }
+       }
+```
 ## Known limitations (common for the component)
  - OpenApi v2.0 is supported
  - Multiply hosts is unsupported
  - Each operation should contains only one tag
+ - Authentication for access to OpenAPI (Swagger) file is unsupported
