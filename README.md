@@ -11,7 +11,6 @@
      * [A URL to an OpenAPI/Swagger document](#a-url-to-an-openapiswagger-document)
 * [Actions](#actions)
    * [Make Request](#make-request)
-* [Additional info](#additional-info)
 * [Known Limitations](#known-limitations)
 
 ## General information
@@ -22,6 +21,7 @@ OpenAPI (Swagger) document needs to be hosted online and should be reached witho
 Using OpenAPI Specification make request to REST API on elastic.io platform.
 ### Completeness Matrix
 ![image](https://user-images.githubusercontent.com/16806832/73257112-da9b5180-41cb-11ea-83d9-2725552185f7.png)
+
 [Completeness Matrix](https://docs.google.com/spreadsheets/d/1S3B7caVck0IjR-jU-EX5gZDLBcL9L6dTRKPxoNxYApU/edit#gid=0)
 ### How works. API version / SDK version
 Currently, it is supported OpenAPI version 2.0 documents.
@@ -35,9 +35,12 @@ It is used [Swagger Client](https://github.com/swagger-api/swagger-js) version 3
   It is supported 3 auth type:
    - `No Auth` - used by default, make request without authentication.
    - `Basic Auth` - make request with basic authentication, `Username` and `Password` fields should be specified:
+   
    ![image](https://user-images.githubusercontent.com/16806832/73258339-2a7b1800-41ce-11ea-894a-98fa65e37b81.png)
+   
    - `API Key Auth` - make request with API key in headers authentication, `Header Name` and `Header Value` fields should be specified:
-   ![image](https://user-images.githubusercontent.com/16806832/73258541-93629000-41ce-11ea-899d-6d1531df3fa1.png)
+   
+ ![image](https://user-images.githubusercontent.com/16806832/73258541-93629000-41ce-11ea-899d-6d1531df3fa1.png)
   ### A URL to an OpenAPI/Swagger document
   A URL to an OpenAPI/Swagger document that would define the calls that could be made, as example https://petstore.swagger.io/v2/swagger.json
 
@@ -141,8 +144,8 @@ It is used [Swagger Client](https://github.com/swagger-api/swagger-js) version 3
          }
        }
 ```
-## Known limitations (common for the component)
- - OpenApi v2.0 is supported
- - Multiply hosts is unsupported
+## Known limitations
+ - OpenApi v2.0 is supported only
+ - Multiply hosts are not supported
  - Each operation should contains only one tag
- - Authentication for access to OpenAPI (Swagger) file is unsupported
+ - Authentication for access to OpenAPI (Swagger) file is not supported
