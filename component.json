@@ -1,0 +1,51 @@
+{
+  "title": "OpenAPI/Swagger Component",
+  "description": "elastic.io OpenAPI/Swagger Component",
+  "docsUrl": "https://github.com/elasticio/open-api-component",
+  "buildType":"docker",
+  "credentials": {
+    "fields": {
+      "auth": {
+        "required": false,
+        "viewClass": "HTTPAuthView"
+      },
+      "openApiUrl": {
+        "viewClass": "TextFieldView",
+        "label": "A URL to an OpenAPI/Swagger document",
+        "required": true,
+        "placeholder": "https://petstore.swagger.io/v2/swagger.json"
+      }
+    }
+  },
+  "actions": {
+    "makeRequest": {
+      "main": "./lib/actions/makeRequest.js",
+      "title": "Make Request",
+      "description": "Make Request",
+      "fields": {
+        "path": {
+          "label": "Path",
+          "required": true,
+          "viewClass": "SelectView",
+          "model":"getPath",
+          "prompt": "Select a path"
+        },
+        "operation": {
+          "label": "Operation",
+          "required": true,
+          "require": [
+            "path"
+          ],
+          "viewClass": "SelectView",
+          "model":"getOperations",
+          "prompt": "Select an operation"
+        },
+        "dontThrowErrorFlg": {
+          "label": "Don`t throw Error on Failed Calls",
+          "viewClass": "CheckBoxView"
+        }
+      },
+      "dynamicMetadata": true
+    }
+  }
+}
