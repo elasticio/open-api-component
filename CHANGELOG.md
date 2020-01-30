@@ -1,4 +1,4 @@
-## 1.0.0 (January 27, 2020)
+## 1.0.0 (January 30, 2020)
 
 * Add action `Make request`
 * Initial release
