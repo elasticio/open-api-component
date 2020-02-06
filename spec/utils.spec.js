@@ -13,12 +13,12 @@ describe('utils test', () => {
             type: 'No Auth',
           },
         };
-        const result = getSecurities(cfg, {}, logger);
+        const result = await getSecurities(cfg, {}, logger);
         expect(result).to.deep.equals({});
       });
 
       it('empty type should succeed', async () => {
-        const result = getSecurities({}, {}, logger);
+        const result = await getSecurities({}, {}, logger);
         expect(result).to.deep.equals({});
       });
     });
@@ -34,7 +34,7 @@ describe('utils test', () => {
             },
           },
         };
-        const result = getSecurities(cfg, {}, logger);
+        const result = await getSecurities(cfg, {}, logger);
         expect(result).to.deep.equals({
           authorized: {
             basicAuth: {
@@ -56,7 +56,13 @@ describe('utils test', () => {
             },
           },
         };
-        expect(() => getSecurities(cfg, {}, logger)).to.throw('Password is required for basic auth');
+        let message = false;
+        try {
+          await getSecurities(cfg, {}, logger);
+        } catch (e) {
+          message = e.message;
+        }
+        expect(message).to.equal('Password is required for basic auth');
       });
     });
 
@@ -80,7 +86,7 @@ describe('utils test', () => {
             },
           },
         };
-        const result = getSecurities(cfg, spec, logger);
+        const result = await getSecurities(cfg, spec, logger);
         expect(result).to.deep.equals({
           authorized: {
             api_key: {
@@ -100,7 +106,13 @@ describe('utils test', () => {
             },
           },
         };
-        expect(() => getSecurities(cfg, spec, logger)).to.throw('securityDefinitions for Api Key in header is required for API Key Auth type');
+        let message = false;
+        try {
+          await getSecurities(cfg, spec, logger);
+        } catch (e) {
+          message = e.message;
+        }
+        expect(message).to.equal('securityDefinitions for Api Key in header is required for API Key Auth type');
       });
     });
 
@@ -161,7 +173,13 @@ describe('utils test', () => {
       };
 
       it('should fail for unsupported Auth type', async () => {
-        expect(() => getSecurities(cfg, {}, logger)).to.throw('Auth Type Fail Auth not yet implemented.');
+        let message = false;
+        try {
+          await getSecurities(cfg, {}, logger);
+        } catch (e) {
+          message = e.message;
+        }
+        expect(message).to.equal('Auth Type Fail Auth not yet implemented.');
       });
     });
   });
