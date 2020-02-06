@@ -15,6 +15,12 @@
         "required": true,
         "placeholder": "https://petstore.swagger.io/v2/swagger.json"
       }
+    },
+    "oauth2" : {
+      "client_id": "{{clientId}}",
+      "client_secret": "{{clientSecret}}",
+      "auth_uri": "{{authUri}}",
+      "token_uri": "{{tokenUri}}"
     }
   },
   "actions": {

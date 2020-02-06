@@ -1,5 +1,7 @@
 const { expect } = require('chai');
 const logger = require('@elastic.io/component-logger')();
+const nock = require('nock');
+const sinon = require('sinon');
 const { getSecurities, getViewClassModel, getInputMetadata } = require('../lib/utils');
 
 describe('utils test', () => {
@@ -99,6 +101,55 @@ describe('utils test', () => {
           },
         };
         expect(() => getSecurities(cfg, spec, logger)).to.throw('securityDefinitions for Api Key in header is required for API Key Auth type');
+      });
+    });
+
+    describe('type OAuth2 test', () => {
+      const emitter = {
+        emit: sinon.spy(),
+      };
+      const refreshedToken = 'refreshed_token';
+      const tokenUri = 'http://example.com/oauth/token/';
+      const cfg = {
+        auth: {
+          type: 'OAuth2',
+          oauth2: {
+            clientId: 'e6b02a7d-eb7e-4090-b112-f78f68cd6022',
+            clientSecret: 'e6b02a7d-eb7e-4090-b112-f78f68cd6022',
+            authUri: 'http://example.com/oauth/auth',
+            tokenUri,
+            keys: {
+              access_token: 'token',
+              token_type: 'Bearer',
+              refresh_token: 'refresh_token',
+              expires_in: 28800,
+            },
+          },
+        },
+      };
+      const responseMessage = {
+        access_token: refreshedToken,
+        token_type: 'Bearer',
+        refresh_token: 'refresh_token',
+        expires_in: 28800,
+      };
+
+      const refreshTokenNock = nock('http://example.com/oauth/token/')
+        .post('/', {
+          refresh_token: cfg.auth.oauth2.keys.refresh_token,
+          grant_type: 'refresh_token',
+          client_id: cfg.auth.oauth2.clientId,
+          client_secret: cfg.auth.oauth2.clientSecret,
+        })
+        .reply(200, responseMessage);
+      it('type OAuth2 should succeed', async () => {
+        const result = await getSecurities(cfg, {}, logger, emitter);
+        expect(refreshTokenNock.isDone());
+        expect(result).to.deep.equals({
+          authorized: {
+            Authorization: `Bearer ${refreshedToken}`,
+          },
+        });
       });
     });
 
