@@ -139,6 +139,16 @@ describe('utils test', () => {
           },
         },
       };
+      const spec = {
+        securityDefinitions: {
+          OAuth2: {
+            type: 'oauth2',
+            flow: 'accessCode',
+            authorizationUrl: 'https://account-d.docusign.com/oauth/auth',
+            tokenUrl: 'https://account-d.docusign.com/oauth/token',
+          },
+        },
+      };
       const responseMessage = {
         access_token: refreshedToken,
         token_type: 'Bearer',
@@ -155,11 +165,15 @@ describe('utils test', () => {
         })
         .reply(200, responseMessage);
       it('type OAuth2 should succeed', async () => {
-        const result = await getSecurities(cfg, {}, logger, emitter);
+        const result = await getSecurities(cfg, spec, logger, emitter);
         expect(refreshTokenNock.isDone());
         expect(result).to.deep.equals({
           authorized: {
-            Authorization: `Bearer ${refreshedToken}`,
+            OAuth2: {
+              token: {
+                access_token: 'refreshed_token',
+              },
+            },
           },
         });
       });
