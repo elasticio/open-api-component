@@ -29,10 +29,10 @@ It is used [Swagger Client](https://github.com/swagger-api/swagger-js) version 3
 [OpenAPI Specification](https://swagger.io/docs/specification/about/).
 
 ## Credentials
-  ![image](https://user-images.githubusercontent.com/16806832/73258248-fa337980-41cd-11ea-8c8a-daf9a22360ec.png)
+  ![image](https://user-images.githubusercontent.com/16806832/74028730-bf8ec580-49b3-11ea-82ba-ff44ebde6c13.png)
   ### Type
   Authentication type field to define the authentication schema that would be used for making request. 
-  It is supported 3 auth type:
+  It is supported 4 auth type:
    - `No Auth` - used by default, make request without authentication.
    - `Basic Auth` - make request with basic authentication, `Username` and `Password` fields should be specified:
    
@@ -41,6 +41,14 @@ It is used [Swagger Client](https://github.com/swagger-api/swagger-js) version 3
    - `API Key Auth` - make request with API key in headers authentication, `Header Name` and `Header Value` fields should be specified:
    
  ![image](https://user-images.githubusercontent.com/16806832/73258541-93629000-41ce-11ea-899d-6d1531df3fa1.png)
+   
+   - `OAuth2` - it is supported `Authorization code` OAuth2 flow. Fields:
+        - `Client Id` - is a public identifier for apps
+        - `Client Secret` -  is a secret known only to the application and the authorization server
+        - `Auth URI` -  uri for authorization
+        - `Token URI` -  uri for getting an access token
+        - `Scopes` -  is a scope of the access request
+ ![image](https://user-images.githubusercontent.com/16806832/74029107-9a4e8700-49b4-11ea-996a-6b9a511f8fc3.png)
   ### A URL to an OpenAPI/Swagger document
   A URL to an OpenAPI/Swagger document that would define the calls that could be made, as example https://petstore.swagger.io/v2/swagger.json
 
