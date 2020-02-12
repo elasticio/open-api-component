@@ -60,7 +60,7 @@ describe('makeRequest action test', () => {
       cfg.operation = 'get';
       const msg = {
         body: {
-          petId: 1,
+          petId: 2,
         },
       };
       await makeRequest.process.call(self, msg, cfg);

@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "This is a sample server Telekom server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).",
+    "description": "This is a sample server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).",
     "version": "1.0.0",
     "title": "Rate Plan Configuration API",
     "termsOfService": "http://swagger.io/terms/",
@@ -10,8 +10,8 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host": "demo.docusign.net",
-  "basePath": "/restapi/v2.1",
+  "host": "start.exactonline.be",
+  "basePath": "/api/v1",
   "securityDefinitions": {
     "APIKeyHeader": {
       "type": "apiKey",
@@ -24,8 +24,8 @@
     "OAuth2": {
       "type": "oauth2",
       "flow": "accessCode",
-      "authorizationUrl": "https://account-d.docusign.com/oauth/auth",
-      "tokenUrl": "https://account-d.docusign.com/oauth/token"
+      "authorizationUrl": "https://start.exactonline.be/api/oauth2/auth",
+      "tokenUrl": "https://start.exactonline.be/api/oauth2/token"
     }
   },
   "security": [
@@ -43,7 +43,7 @@
     "https"
   ],
   "paths": {
-    "/accounts/85b9a8eb-5e97-416d-9220-9cb52eb35d82/templates": {
+    "/current/Me": {
       "get": {
         "tags": [
           "me"
