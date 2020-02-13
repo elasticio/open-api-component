@@ -1,5 +1,7 @@
 const { expect } = require('chai');
 const logger = require('@elastic.io/component-logger')();
+const nock = require('nock');
+const sinon = require('sinon');
 const { getSecurities, getViewClassModel, getInputMetadata } = require('../lib/utils');
 
 describe('utils test', () => {
@@ -11,12 +13,12 @@ describe('utils test', () => {
             type: 'No Auth',
           },
         };
-        const result = getSecurities(cfg, {}, logger);
+        const result = await getSecurities(cfg, {}, logger);
         expect(result).to.deep.equals({});
       });
 
       it('empty type should succeed', async () => {
-        const result = getSecurities({}, {}, logger);
+        const result = await getSecurities({}, {}, logger);
         expect(result).to.deep.equals({});
       });
     });
@@ -32,7 +34,7 @@ describe('utils test', () => {
             },
           },
         };
-        const result = getSecurities(cfg, {}, logger);
+        const result = await getSecurities(cfg, {}, logger);
         expect(result).to.deep.equals({
           authorized: {
             basicAuth: {
@@ -54,7 +56,13 @@ describe('utils test', () => {
             },
           },
         };
-        expect(() => getSecurities(cfg, {}, logger)).to.throw('Password is required for basic auth');
+        let message = false;
+        try {
+          await getSecurities(cfg, {}, logger);
+        } catch (e) {
+          message = e.message;
+        }
+        expect(message).to.equal('Password is required for basic auth');
       });
     });
 
@@ -78,7 +86,7 @@ describe('utils test', () => {
             },
           },
         };
-        const result = getSecurities(cfg, spec, logger);
+        const result = await getSecurities(cfg, spec, logger);
         expect(result).to.deep.equals({
           authorized: {
             api_key: {
@@ -98,7 +106,76 @@ describe('utils test', () => {
             },
           },
         };
-        expect(() => getSecurities(cfg, spec, logger)).to.throw('securityDefinitions for Api Key in header is required for API Key Auth type');
+        let message = false;
+        try {
+          await getSecurities(cfg, spec, logger);
+        } catch (e) {
+          message = e.message;
+        }
+        expect(message).to.equal('securityDefinitions for Api Key in header is required for API Key Auth type');
+      });
+    });
+
+    describe('type OAuth2 test', () => {
+      const emitter = {
+        emit: sinon.spy(),
+      };
+      const refreshedToken = 'refreshed_token';
+      const tokenUri = 'http://example.com/oauth/token/';
+      const cfg = {
+        auth: {
+          type: 'OAuth2',
+          oauth2: {
+            clientId: 'e6b02a7d-eb7e-4090-b112-f78f68cd6022',
+            clientSecret: 'e6b02a7d-eb7e-4090-b112-f78f68cd6022',
+            authUri: 'http://example.com/oauth/auth',
+            tokenUri,
+            keys: {
+              access_token: 'token',
+              token_type: 'Bearer',
+              refresh_token: 'refresh_token',
+              expires_in: 28800,
+            },
+          },
+        },
+      };
+      const spec = {
+        securityDefinitions: {
+          OAuth2: {
+            type: 'oauth2',
+            flow: 'accessCode',
+            authorizationUrl: 'https://account-d.docusign.com/oauth/auth',
+            tokenUrl: 'https://account-d.docusign.com/oauth/token',
+          },
+        },
+      };
+      const responseMessage = {
+        access_token: refreshedToken,
+        token_type: 'Bearer',
+        refresh_token: 'refresh_token',
+        expires_in: 28800,
+      };
+
+      const refreshTokenNock = nock('http://example.com/oauth/token/')
+        .post('/', {
+          refresh_token: cfg.auth.oauth2.keys.refresh_token,
+          grant_type: 'refresh_token',
+          client_id: cfg.auth.oauth2.clientId,
+          client_secret: cfg.auth.oauth2.clientSecret,
+        })
+        .reply(200, responseMessage);
+      it('type OAuth2 should succeed', async () => {
+        const result = await getSecurities(cfg, spec, logger, emitter);
+        expect(refreshTokenNock.isDone());
+        expect(result).to.deep.equals({
+          authorized: {
+            OAuth2: {
+              token: {
+                access_token: 'refreshed_token',
+              },
+            },
+          },
+        });
       });
     });
 
@@ -110,7 +187,13 @@ describe('utils test', () => {
       };
 
       it('should fail for unsupported Auth type', async () => {
-        expect(() => getSecurities(cfg, {}, logger)).to.throw('Auth Type Fail Auth not yet implemented.');
+        let message = false;
+        try {
+          await getSecurities(cfg, {}, logger);
+        } catch (e) {
+          message = e.message;
+        }
+        expect(message).to.equal('Auth Type Fail Auth not yet implemented.');
       });
     });
   });

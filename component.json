@@ -5,16 +5,22 @@
   "buildType":"docker",
   "credentials": {
     "fields": {
-      "auth": {
-        "required": false,
-        "viewClass": "HTTPAuthView"
-      },
       "openApiUrl": {
         "viewClass": "TextFieldView",
         "label": "A URL to an OpenAPI/Swagger document",
         "required": true,
         "placeholder": "https://petstore.swagger.io/v2/swagger.json"
+      },
+      "auth": {
+        "required": false,
+        "viewClass": "HTTPAuthView"
       }
+    },
+    "oauth2" : {
+      "client_id": "{{clientId}}",
+      "client_secret": "{{clientSecret}}",
+      "auth_uri": "{{authUri}}",
+      "token_uri": "{{tokenUri}}"
     }
   },
   "actions": {

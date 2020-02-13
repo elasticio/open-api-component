@@ -56,11 +56,11 @@ describe('makeRequest action test', () => {
       sinon.restore();
     });
     it('process test', async () => {
-      cfg.path = '/pet/{petId}';
+      cfg.path = '/pet/findByStatus';
       cfg.operation = 'get';
       const msg = {
         body: {
-          petId: 3,
+          status: 'available',
         },
       };
       await makeRequest.process.call(self, msg, cfg);

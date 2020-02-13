@@ -1,6 +1,6 @@
 {
     "name": "@elasticio/open-api-component",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "elastic.io component for the OpenAPI/Swagger Component",
     "scripts": {
         "pretest": "eslint spec spec-integration lib verifyCredentials.js --fix",
@@ -11,7 +11,7 @@
     "author": "elastic.io GmbH",
     "license": "BSD-2-Clause",
     "engines": {
-        "node": "8.6.0",
+        "node": ">=12.0.0",
         "npm": ">=5.4"
     },
     "dependencies": {
@@ -20,6 +20,7 @@
         "elasticio-node": "0.0.8",
         "elasticio-sailor-nodejs": "2.5.4",
         "mocha": "6.2.2",
+        "request-promise": "4.2.5",
         "sinon": "7.5.0",
         "swagger-client": "3.10.0"
     },
@@ -27,6 +28,7 @@
         "@elastic.io/component-logger": "latest",
         "eslint": "6.5.1",
         "eslint-config-airbnb-base": "14.0.0",
-        "eslint-plugin-import": "2.18.2"
+        "eslint-plugin-import": "2.18.2",
+        "nock": "11.7.2"
     }
 }
