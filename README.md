@@ -157,3 +157,4 @@ It is used [Swagger Client](https://github.com/swagger-api/swagger-js) version 3
  - Multiply hosts are not supported
  - Each operation should contains only one tag
  - Authentication for access to OpenAPI (Swagger) file is not supported
+ - OAuth2 authentication type isn't supported in real-time flow due to platform limitation

@@ -1,4 +1,4 @@
-## 1.1.0 (February 12, 2020)
+## 1.1.0 (February 13, 2020)
 
 * Support OAuth2
 
