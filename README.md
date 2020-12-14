@@ -48,6 +48,7 @@ It is used [Swagger Client](https://github.com/swagger-api/swagger-js) version 3
         - `Auth URI` -  uri for authorization
         - `Token URI` -  uri for getting an access token
         - `Scopes` -  is a scope of the access request
+        
  ![image](https://user-images.githubusercontent.com/16806832/74029107-9a4e8700-49b4-11ea-996a-6b9a511f8fc3.png)
   ### A URL to an OpenAPI/Swagger document
   A URL to an OpenAPI/Swagger document that would define the calls that could be made, as example https://petstore.swagger.io/v2/swagger.json
