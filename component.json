@@ -47,7 +47,7 @@
           "prompt": "Select an operation"
         },
         "dontThrowErrorFlg": {
-          "label": "Don`t throw Error on Failed Calls",
+          "label": "Don't throw Error on Failed Calls",
           "viewClass": "CheckBoxView"
         }
       },
