@@ -48,6 +48,7 @@ It is used [Swagger Client](https://github.com/swagger-api/swagger-js) version 3
         - `Auth URI` -  uri for authorization
         - `Token URI` -  uri for getting an access token
         - `Scopes` -  is a scope of the access request
+        
  ![image](https://user-images.githubusercontent.com/16806832/74029107-9a4e8700-49b4-11ea-996a-6b9a511f8fc3.png)
   ### A URL to an OpenAPI/Swagger document
   A URL to an OpenAPI/Swagger document that would define the calls that could be made, as example https://petstore.swagger.io/v2/swagger.json
@@ -60,8 +61,10 @@ It is used [Swagger Client](https://github.com/swagger-api/swagger-js) version 3
    A dropdown for the paths than defined in the OpenAPI document.
    ##### Operation
    A dropdown for the operations that are allowed for a previously defined path.
-   ##### Don`t throw Error on Failed Calls
+   ##### Don't throw Error on Failed Calls
    An option as to whether or not errors should be thrown for HTTP codes in the 4xx/5xx range.
+   
+   *NOTE:* an exception is the 401 HTTP status code - error would be thrown for this code regardless of field value (true/false)
    #### Expected input metadata
    Input metadata is depend on parameters, that are defined in [operation](https://swagger.io/docs/specification/2-0/describing-parameters/):
    `path parameters` are defined as a separate fields, and `body` as object that should be configured by user.
