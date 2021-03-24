@@ -27,7 +27,7 @@
     "makeRequest": {
       "main": "./lib/actions/makeRequest.js",
       "title": "Make Request",
-      "description": "Make Request",
+      "note": "Make Request",
       "fields": {
         "path": {
           "label": "Path",
