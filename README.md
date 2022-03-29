@@ -1,3 +1,5 @@
+![](https://github.com/elasticio/splitter-component/blob/master/elastic.io%20Logo%20pure-01.png)
+
 # OpenAPI/Swagger Component"
 ## Table of Contents
 
